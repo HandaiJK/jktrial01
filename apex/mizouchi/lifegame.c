@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdbool.h>
 
-//board_a‚Ìî•ñ‚ğboard_b‚ÉƒRƒs[
+//board_aã®æƒ…å ±ã‚’board_bã«ã‚³ãƒ”ãƒ¼
 void copy_board(int w, int h, bool board_a[w][h], bool board_b[w][h]){
 	int i, j;
 	
@@ -12,7 +12,7 @@ void copy_board(int w, int h, bool board_a[w][h], bool board_b[w][h]){
 	}
 }
 
-//”Õ–Ê‚ğ•W€o—Í‚É•\¦
+//ç›¤é¢ã‚’æ¨™æº–å‡ºåŠ›ã«è¡¨ç¤º
 void print_board(int w, int h, bool current_board[w][h]){
 	int i, j;
 	
@@ -28,15 +28,15 @@ void print_board(int w, int h, bool current_board[w][h]){
 	}
 }
 
-//ƒZƒ‹‚ÌüˆÍ8ƒ}ƒX‚ğ’Tõ‚µC¶‚«‚Ä‚¢‚éƒZƒ‹‚Ì”‚ğ•Ô‚·
+//ã‚»ãƒ«ã®å‘¨å›²8ãƒã‚¹ã‚’æ¢ç´¢ã—ï¼Œç”Ÿãã¦ã„ã‚‹ã‚»ãƒ«ã®æ•°ã‚’è¿”ã™
 int search(int w, int h, bool current_board[w][h],int  x,int  y){
 	int num_of_alive = 0;
 	int i, j;
 	
 	for(i = (y - 1); i <= (y + 1); i++){
 		for(j = (x - 1); j <= (x + 1); j++){
-			if(i == y && j == x) continue;	//’†S‚ÌƒZƒ‹‚Í–³‹
-			if(j >= 0 && i >= 0 && j < w && i < h)	//”Ö–Ê‚ÌŠO‚à–³‹
+			if(i == y && j == x) continue;	//ä¸­å¿ƒã®ã‚»ãƒ«ã¯ç„¡è¦–
+			if(j >= 0 && i >= 0 && j < w && i < h)	//ç£é¢ã®å¤–ã‚‚ç„¡è¦–
 				if(current_board[j][i]) ++num_of_alive;
 		}
 	}
@@ -44,7 +44,7 @@ int search(int w, int h, bool current_board[w][h],int  x,int  y){
 	return num_of_alive;
 }
 
-//”Õ–Ê‚ğ1¢‘ãi‚ß‚é
+//ç›¤é¢ã‚’1ä¸–ä»£é€²ã‚ã‚‹
 void next(int w, int h, bool current_board[w][h], bool shadow_board[w][h]){
 	int i, j;
 	
@@ -53,9 +53,9 @@ void next(int w, int h, bool current_board[w][h], bool shadow_board[w][h]){
 	
 	for(i = 0; i < h; i++){
 		for(j = 0; j < w; j++){
-			if(current_board[j][i]){	//¶‚«‚Ä‚¢‚éƒZƒ‹‚ÌüˆÍ‚ÉC2‚Â‚Ü‚½‚Í3‚Â‚Ì¶‚«‚Ä‚¢‚éƒZƒ‹‚ª‚ ‚ê‚Î‚»‚ÌƒZƒ‹‚Í¶‘¶
+			if(current_board[j][i]){	//ç”Ÿãã¦ã„ã‚‹ã‚»ãƒ«ã®å‘¨å›²ã«ï¼Œ2ã¤ã¾ãŸã¯3ã¤ã®ç”Ÿãã¦ã„ã‚‹ã‚»ãƒ«ãŒã‚ã‚Œã°ãã®ã‚»ãƒ«ã¯ç”Ÿå­˜
 				if(search(w, h, current_board, j, i) <= 1 || search(w, h, current_board, j, i) >= 4) shadow_board[j][i] = false;
-			}else{	//€‚ñ‚Å‚¢‚éƒZƒ‹‚ÌüˆÍ‚ÉC3‚Â‚Ì¶‚«‚Ä‚¢‚éƒZƒ‹‚ª‚ ‚ê‚Î¶‚«‚Ä‚¢‚éƒZƒ‹‚ª’a¶
+			}else{	//æ­»ã‚“ã§ã„ã‚‹ã‚»ãƒ«ã®å‘¨å›²ã«ï¼Œ3ã¤ã®ç”Ÿãã¦ã„ã‚‹ã‚»ãƒ«ãŒã‚ã‚Œã°ç”Ÿãã¦ã„ã‚‹ã‚»ãƒ«ãŒèª•ç”Ÿ
 				if(search(w, h, current_board, j, i) == 3) shadow_board[j][i] = true;
 			}
 		}
@@ -70,34 +70,34 @@ void lifegame(int w,int h, int *input, int input_length){
 	bool shadow_board[w][h];
 	int i,j;
 	
-	//”Õ–Ê‚ÌƒZƒ‹‚ğ‚·‚×‚Ä€‚ñ‚Å‚¢‚éó‘Ô‚Å‰Šú‰»
+	//ç›¤é¢ã®ã‚»ãƒ«ã‚’ã™ã¹ã¦æ­»ã‚“ã§ã„ã‚‹çŠ¶æ…‹ã§åˆæœŸåŒ–
 	for(i = 0; i < h; i++){
 		for(j = 0; j < w; j++){
 			current_board[j][i] = false;
 		}
 	}
 	
-	//input‚Ìî•ñ‚ğ‚à‚Æ‚É‘æ1¢‘ã‚Å¶‚«‚Ä‚¢‚éƒZƒ‹‚ğİ’è
+	//inputã®æƒ…å ±ã‚’ã‚‚ã¨ã«ç¬¬1ä¸–ä»£ã§ç”Ÿãã¦ã„ã‚‹ã‚»ãƒ«ã‚’è¨­å®š
 	for(i = 0; i < input_length; i++){
 		current_board[input[i] / 10][input[i] % 10] = true;
 	}
 	
-	//”Õ–Ê‚ğ12¢‘ãi‚ß‚é
+	//ç›¤é¢ã‚’12ä¸–ä»£é€²ã‚ã‚‹
 	for(i = 0; i < 12; i++){
 		next(w, h, current_board, shadow_board);
 	}
 	
-	//”Õ–Ê‚ğ•\¦
+	//ç›¤é¢ã‚’è¡¨ç¤º
 	print_board(w, h, current_board);
 }
 
 
 int main()
 {
-	const int w = 10;	//”Õ–Ê‚Ì‰¡•
-	const int h = 10;	//”Õ–Ê‚Ìc•
-	int input[] = {11, 22, 3, 13, 23};	//‘æ1¢‘ã‚Å¶‘¶‚µ‚Ä‚¢‚éƒZƒ‹‚ÌÀ•W(x,y)‚ğ10x+y‚ÌŒ`‚Å•\‚µ‚½‚à‚Ì
-	int input_length = 5;	//input[]‚Ì—v‘f”
+	const int w = 10;	//ç›¤é¢ã®æ¨ªå¹…
+	const int h = 10;	//ç›¤é¢ã®ç¸¦å¹…
+	int input[] = {11, 22, 3, 13, 23};	//ç¬¬1ä¸–ä»£ã§ç”Ÿå­˜ã—ã¦ã„ã‚‹ã‚»ãƒ«ã®åº§æ¨™(x,y)ã‚’10x+yã®å½¢ã§è¡¨ã—ãŸã‚‚ã®
+	int input_length = 5;	//input[]ã®è¦ç´ æ•°
 	
 	lifegame(w, h, input, input_length);
 	
